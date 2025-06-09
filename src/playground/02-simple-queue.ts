@@ -1,7 +1,7 @@
 import { LinkedList } from "./01-linked-list";
 
 /**
- * Simple Queue implemented with a doubly linked list
+ * Simple Queue implemented with a circular doubly linked list
  */
 export class SimpleQueue<T> {
   private list: LinkedList<T>;

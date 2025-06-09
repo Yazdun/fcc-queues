@@ -1,12 +1,12 @@
-# FCC Linked List
+# FCC Queues
 
-This is a TypeScript project for implementing and testing linked list data structures.
+This is a TypeScript project for implementing and testing queues data structures.
 
 ## Getting Started
 
 ```bash
-git clone git@github.com:Yazdun/fcc-linked-list.git
-cd fcc-linked-list
+git clone git@github.com:Yazdun/fcc-queues.git
+cd fcc-queues
 ```
 
 ## 2. Install Dependencies

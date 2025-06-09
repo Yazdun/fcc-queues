@@ -12,7 +12,7 @@ export class NodeItem<T> {
 }
 
 /**
- * Doubly Linked List
+ * Circular Doubly Linked List
  */
 export class LinkedList<T> {
   private head: NodeItem<T> | null = null;
@@ -28,9 +28,13 @@ export class LinkedList<T> {
     if (this.isEmpty()) {
       this.head = newNode;
       this.tail = newNode;
+      newNode.next = newNode;
+      newNode.prev = newNode;
     } else {
       newNode.next = this.head;
+      newNode.prev = this.tail;
       this.head!.prev = newNode;
+      this.tail!.next = newNode;
       this.head = newNode;
     }
     this.currentSize++;
@@ -45,9 +49,13 @@ export class LinkedList<T> {
     if (this.isEmpty()) {
       this.head = newNode;
       this.tail = newNode;
+      newNode.next = newNode;
+      newNode.prev = newNode;
     } else {
-      this.tail!.next = newNode;
+      newNode.next = this.head;
       newNode.prev = this.tail;
+      this.tail!.next = newNode;
+      this.head!.prev = newNode;
       this.tail = newNode;
     }
     this.currentSize++;
@@ -55,18 +63,20 @@ export class LinkedList<T> {
 
   /**
    * Remove and return the value from the front of the list
-   * @returns The value at the front or undefined if empty
+   * @returns The value at the head or undefined if empty
    */
   deleteHead(): T | undefined {
     if (this.isEmpty()) {
       return undefined;
     }
     const value = this.head!.value;
-    this.head = this.head!.next;
-    if (this.head) {
-      this.head.prev = null;
-    } else {
+    if (this.currentSize === 1) {
+      this.head = null;
       this.tail = null;
+    } else {
+      this.head = this.head!.next;
+      this.head!.prev = this.tail;
+      this.tail!.next = this.head;
     }
     this.currentSize--;
     return value;
@@ -74,18 +84,20 @@ export class LinkedList<T> {
 
   /**
    * Remove and return the value from the back of the list
-   * @returns The value at the back or undefined if empty
+   * @returns The value at the tail or undefined if empty
    */
   deleteTail(): T | undefined {
     if (this.isEmpty()) {
       return undefined;
     }
     const value = this.tail!.value;
-    this.tail = this.tail!.prev;
-    if (this.tail) {
-      this.tail.next = null;
-    } else {
+    if (this.currentSize === 1) {
       this.head = null;
+      this.tail = null;
+    } else {
+      this.tail = this.tail!.prev;
+      this.tail!.next = this.head;
+      this.head!.prev = this.tail;
     }
     this.currentSize--;
     return value;
@@ -93,7 +105,7 @@ export class LinkedList<T> {
 
   /**
    * Get the value at the front without removing it
-   * @returns The value at the front or undefined if empty
+   * @returns The value at the head or undefined if empty
    */
   getHead(): T | undefined {
     return this.head?.value;
@@ -101,7 +113,7 @@ export class LinkedList<T> {
 
   /**
    * Get the value at the back without removing it
-   * @returns The value at the back or undefined if empty
+   * @returns The value at the tail or undefined if empty
    */
   getTail(): T | undefined {
     return this.tail?.value;

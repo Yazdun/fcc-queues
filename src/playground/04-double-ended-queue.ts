@@ -1,7 +1,7 @@
 import { LinkedList } from "./01-linked-list";
 
 /**
- * Double-Ended Queue (Deque) implemented with a doubly linked list
+ * Double-Ended Queue (Deque) implemented with a circular doubly linked list
  */
 export class Deque<T> {
   private list: LinkedList<T>;

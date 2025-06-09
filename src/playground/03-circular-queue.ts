@@ -1,7 +1,7 @@
 import { LinkedList } from "./01-linked-list";
 
 /**
- * Circular Queue implemented with a doubly linked list and fixed size
+ * Circular Queue implemented with a circular doubly linked list
  */
 export class CircularQueue<T> {
   private list: LinkedList<T>;
@@ -21,7 +21,7 @@ export class CircularQueue<T> {
    */
   enqueue(item: T): void {
     if (this.isFull()) {
-      throw new Error("Queue is full");
+      throw new Error("Circular queue is full");
     }
     this.list.append(item);
   }

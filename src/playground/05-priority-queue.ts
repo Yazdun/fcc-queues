@@ -3,13 +3,13 @@ import { LinkedList, NodeItem } from "./01-linked-list";
 /**
  * Interface for an element with priority
  */
-export interface PriorityItem<T> {
+interface PriorityItem<T> {
   value: T;
   priority: number;
 }
 
 /**
- * Priority Queue implemented with a doubly linked list
+ * Priority Queue implemented with a circular doubly linked list
  */
 export class PriorityQueue<T> {
   private list: LinkedList<PriorityItem<T>>;
@@ -35,32 +35,40 @@ export class PriorityQueue<T> {
     }
 
     const newItem: PriorityItem<T> = { value, priority };
-
     if (this.isEmpty()) {
       this.list.prepend(newItem);
       return;
     }
 
-    // Traverse to find the correct position based on priority
-    let current = this.list["head"]; // Access private head property (assumes access within same module)
-    while (current !== null && current.value.priority >= priority) {
+    let current = this.list["head"];
+    let count = 0;
+    while (
+      current &&
+      current.value.priority >= priority &&
+      count < this.size()
+    ) {
       current = current.next;
+      count++;
     }
 
-    if (current === null) {
-      // Add to the end if priority is lowest
+    if (count === this.size()) {
       this.list.append(newItem);
-    } else if (current === this.list["head"]) {
-      // Add to the front if priority is highest
-      this.list.prepend(newItem);
     } else {
-      // Insert in the middle
       const newNode = new NodeItem(newItem);
       newNode.next = current;
-      newNode.prev = current.prev;
-      current.prev!.next = newNode;
-      current.prev = newNode;
-      this.list["currentSize"]++; // Manually increment size (assumes access within same module)
+      newNode.prev = current!.prev;
+      if (current!.prev) {
+        current!.prev.next = newNode;
+      } else {
+        this.list["head"] = newNode;
+      }
+      current!.prev = newNode;
+      if (current === this.list["head"]) {
+        this.list["head"] = newNode;
+      }
+      this.list["tail"]!.next = this.list["head"];
+      this.list["head"]!.prev = this.list["tail"];
+      this.list["currentSize"]++;
     }
   }
 
@@ -69,8 +77,7 @@ export class PriorityQueue<T> {
    * @returns The value with the highest priority or undefined if empty
    */
   dequeue(): T | undefined {
-    const item = this.list.deleteHead();
-    return item?.value;
+    return this.list.deleteHead()?.value;
   }
 
   /**

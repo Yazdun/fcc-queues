@@ -19,19 +19,14 @@ export class CircularQueue<T> {
    * Add an element to the rear of the queue
    * @param item The element to add
    */
-  enqueue(item: T): void {
-    if (this.isFull()) {
-      throw new Error("Circular queue is full");
-    }
-    this.list.append(item);
-  }
+  enqueue(item: T): void {}
 
   /**
    * Remove and return the element from the front of the queue
    * @returns The element at the front or undefined if empty
    */
   dequeue(): T | undefined {
-    return this.list.deleteHead();
+    return undefined;
   }
 
   /**
@@ -39,7 +34,7 @@ export class CircularQueue<T> {
    * @returns The element at the front or undefined if empty
    */
   getFront(): T | undefined {
-    return this.list.getHead();
+    return undefined;
   }
 
   /**
@@ -47,7 +42,7 @@ export class CircularQueue<T> {
    * @returns The element at the rear or undefined if empty
    */
   getRear(): T | undefined {
-    return this.list.getTail();
+    return undefined;
   }
 
   /**
@@ -55,7 +50,7 @@ export class CircularQueue<T> {
    * @returns True if the queue is empty, false otherwise
    */
   isEmpty(): boolean {
-    return this.list.isEmpty();
+    return false;
   }
 
   /**
@@ -63,7 +58,7 @@ export class CircularQueue<T> {
    * @returns True if the queue is full, false otherwise
    */
   isFull(): boolean {
-    return this.list.size() >= this.maxSize;
+    return false;
   }
 
   /**
@@ -71,7 +66,7 @@ export class CircularQueue<T> {
    * @returns The element at the front or undefined if empty
    */
   peek(): T | undefined {
-    return this.getFront();
+    return undefined;
   }
 
   /**
@@ -79,6 +74,6 @@ export class CircularQueue<T> {
    * @returns The number of elements in the queue
    */
   size(): number {
-    return this.list.size();
+    return 0;
   }
 }

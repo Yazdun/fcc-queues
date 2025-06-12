@@ -19,30 +19,20 @@ export class Deque<T> {
    * Add an element to the front of the deque
    * @param item The element to add
    */
-  enqueueFront(item: T): void {
-    if (this.isFull()) {
-      throw new Error("Deque is full");
-    }
-    this.list.prepend(item);
-  }
+  enqueueFront(item: T): void {}
 
   /**
    * Add an element to the rear of the deque
    * @param item The element to add
    */
-  enqueueRear(item: T): void {
-    if (this.isFull()) {
-      throw new Error("Deque is full");
-    }
-    this.list.append(item);
-  }
+  enqueueRear(item: T): void {}
 
   /**
    * Remove and return the element from the front of the deque
    * @returns The element at the front or undefined if empty
    */
   dequeueFront(): T | undefined {
-    return this.list.deleteHead();
+    return undefined;
   }
 
   /**
@@ -50,7 +40,7 @@ export class Deque<T> {
    * @returns The element at the rear or undefined if empty
    */
   dequeueRear(): T | undefined {
-    return this.list.deleteTail();
+    return undefined;
   }
 
   /**
@@ -58,7 +48,7 @@ export class Deque<T> {
    * @returns The element at the front or undefined if empty
    */
   getFront(): T | undefined {
-    return this.list.getHead();
+    return undefined;
   }
 
   /**
@@ -66,7 +56,7 @@ export class Deque<T> {
    * @returns The element at the rear or undefined if empty
    */
   getRear(): T | undefined {
-    return this.list.getTail();
+    return undefined;
   }
 
   /**
@@ -74,7 +64,7 @@ export class Deque<T> {
    * @returns True if the deque is empty, false otherwise
    */
   isEmpty(): boolean {
-    return this.list.isEmpty();
+    return false;
   }
 
   /**
@@ -82,7 +72,7 @@ export class Deque<T> {
    * @returns True if the deque is full, false otherwise
    */
   isFull(): boolean {
-    return this.maxSize !== undefined && this.list.size() >= this.maxSize;
+    return false;
   }
 
   /**
@@ -90,7 +80,7 @@ export class Deque<T> {
    * @returns The element at the front or undefined if empty
    */
   peek(): T | undefined {
-    return this.getFront();
+    return undefined;
   }
 
   /**
@@ -98,6 +88,6 @@ export class Deque<T> {
    * @returns The number of elements in the deque
    */
   size(): number {
-    return this.list.size();
+    return 0;
   }
 }

@@ -29,55 +29,14 @@ export class PriorityQueue<T> {
    * @param value The value to add
    * @param priority The priority of the value (higher number = higher priority)
    */
-  enqueue(value: T, priority: number): void {
-    if (this.isFull()) {
-      throw new Error("Priority queue is full");
-    }
-
-    const newItem: PriorityItem<T> = { value, priority };
-    if (this.isEmpty()) {
-      this.list.prepend(newItem);
-      return;
-    }
-
-    let current = this.list["head"];
-    let count = 0;
-    while (
-      current &&
-      current.value.priority >= priority &&
-      count < this.size()
-    ) {
-      current = current.next;
-      count++;
-    }
-
-    if (count === this.size()) {
-      this.list.append(newItem);
-    } else {
-      const newNode = new NodeItem(newItem);
-      newNode.next = current;
-      newNode.prev = current!.prev;
-      if (current!.prev) {
-        current!.prev.next = newNode;
-      } else {
-        this.list["head"] = newNode;
-      }
-      current!.prev = newNode;
-      if (current === this.list["head"]) {
-        this.list["head"] = newNode;
-      }
-      this.list["tail"]!.next = this.list["head"];
-      this.list["head"]!.prev = this.list["tail"];
-      this.list["currentSize"]++;
-    }
-  }
+  enqueue(value: T, priority: number): void {}
 
   /**
    * Remove and return the element with the highest priority from the queue
    * @returns The value with the highest priority or undefined if empty
    */
   dequeue(): T | undefined {
-    return this.list.deleteHead()?.value;
+    return undefined;
   }
 
   /**
@@ -85,7 +44,7 @@ export class PriorityQueue<T> {
    * @returns The value at the front or undefined if empty
    */
   getFront(): T | undefined {
-    return this.list.getHead()?.value;
+    return undefined;
   }
 
   /**
@@ -93,7 +52,7 @@ export class PriorityQueue<T> {
    * @returns The value at the rear or undefined if empty
    */
   getRear(): T | undefined {
-    return this.list.getTail()?.value;
+    return undefined;
   }
 
   /**
@@ -101,7 +60,7 @@ export class PriorityQueue<T> {
    * @returns True if the queue is empty, false otherwise
    */
   isEmpty(): boolean {
-    return this.list.isEmpty();
+    return false;
   }
 
   /**
@@ -109,7 +68,7 @@ export class PriorityQueue<T> {
    * @returns True if the queue is full, false otherwise
    */
   isFull(): boolean {
-    return this.maxSize !== undefined && this.list.size() >= this.maxSize;
+    return false;
   }
 
   /**
@@ -117,7 +76,7 @@ export class PriorityQueue<T> {
    * @returns The value at the front or undefined if empty
    */
   peek(): T | undefined {
-    return this.getFront();
+    return undefined;
   }
 
   /**
@@ -125,6 +84,6 @@ export class PriorityQueue<T> {
    * @returns The number of elements in the queue
    */
   size(): number {
-    return this.list.size();
+    return 0;
   }
 }
